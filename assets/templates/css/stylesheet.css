@@ -2227,7 +2227,7 @@
 ///////////////////////////////////////////////////////////
 */
 /* ------------------------------------ */
-.text-white {color: white;}
+.text-white {color: rgb(255, 255, 255);}
 .text-black {color: black;}
 
 .text-hov-white:hover {color: white;}

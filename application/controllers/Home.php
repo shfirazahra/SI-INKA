@@ -9,8 +9,8 @@ class Home extends CI_Controller {
         $this->load->model('app');
     }
      public function index(){
-            $data['data'] = $this->app->get_all('produk');
-            $data['title'] = 'Oktias Bakery & Cake : Home';
+            $data['data'] = $this->app->get_all('tb_sinka');
+            $data['title'] = 'Kantor Wilayah ATR/BPN Provinsi Jawa Tengah';
             
             $this->load->view('templates/navbar', $data, FALSE);
             $this->load->view('templates/slide', $data, FALSE);
@@ -20,7 +20,7 @@ class Home extends CI_Controller {
         
         public function profile() {
             
-            $data['title'] = 'Oktias Bakery & Cake : Detail';
+            $data['title'] = 'Kantor Wilayah ATR/BPN Provinsi Jawa Tengah';
             $this->load->view('templates/head', $data);
             $this->load->view('member/profile', $data);
             $this->load->view('templates/foot');

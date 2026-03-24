@@ -75,7 +75,7 @@ $pdf->SetFont('times', '', 10);
 // add a page
 $pdf->AddPage();
 
-//$header = array ('id_produk', 'id_kategori', 'nama_produk', 'harga', 'stok', 'ukuran', 'berat', 'gambar', 'deskripsi');
+//$header = array ('kode_bimbel', 'id_kategori', 'nama_bimbel', 'gambar', 'deskripsi');
 
 //$data = $pdf->LoadData();
 //print_r($data);
@@ -105,10 +105,7 @@ $table .='<tr>
         <th style="border:1px solid #000;">Kode Produk</th>
         <th style="border:1px solid #000;">Nama Produk</th>
         <th style="border:1px solid #000;">Kategori Produk</th>
-        <th style="border:1px solid #000;">Harga</th>
-        <th style="border:1px solid #000;">Stok</th>
-        <th style="border:1px solid #000;">Berat</th>
-        <th style="border:1px solid #000;">Ukuran</th>
+        
          </tr>';
 $no = 1;
 foreach ($produk as $row){
@@ -117,10 +114,7 @@ $table .='<tr>
         <td style="border:1px solid #000;">'.$row->kode_produk.'</td>
         <td style="border:1px solid #000;">'.$row->nama_produk.'</td>
         <td style="border:1px solid #000;">'.$row->nama_kategori.'</td>
-        <td style="border:1px solid #000;">Rp. '.number_format($row->harga,0,',','.').'</td>
-        <td style="border:1px solid #000;">'.$row->stok.'</td>
-        <td style="border:1px solid #000;">'.$row->berat.'</td>
-        <td style="border:1px solid #000;">'.$row->ukuran.'</td>
+     
     </tr>';
 }
 $table .='</table>';

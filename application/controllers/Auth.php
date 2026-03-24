@@ -18,9 +18,9 @@ class Auth extends CI_Controller {
             ]);
             
             if($this->form_validation->run() == FALSE){
-            $data['title'] = 'Oktias Bakery & Cake : Admin Login';
+            $data['title'] = 'Sistem Informasi Kantor Wilayah ATR/BPN Jawa Tengah';
             $this->load->view('admin/nav_admin', $data, FALSE);
-            $this->load->view('admin/login', $data, FALSE);
+            $this->load->view('login', $data, FALSE);
             $this->load->view('admin/foot_admin', $data, FALSE);
             }else{
                 //validasi sukses
@@ -28,74 +28,96 @@ class Auth extends CI_Controller {
             }
         }
         
-        private function _login(){
-            $email = $this->input->post('email');
-            $password = $this->input->post('password');
-            
-            $admin = $this->db->get_where('admin', ['email' => $email])->row_array();
-        
-            if($admin){
-                if(password_verify($password, $admin['password'])){
-                    $data = [
-                        'email' => $admin['email'],
-                        'password' => $admin['password']
-                    ];
-                    $this->session->set_userdata($data);
-                    redirect('admin/dashboard');
-                }else{
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kata sandi salah!</div>');
-                    redirect('auth');
-                }
-            }else{
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email belum terdaftar!</div>');
-                redirect('auth');
-            }
-        }
-       
+        public function proses_login(){
+		if($this->input->post('role') === 'pegawai') $this->_proses_login_pegawai($this->input->post('username'));
+		elseif($this->input->post('role') === 'pimpinan') $this->_proses_login_admin($this->input->post('pimpinan'));
+		elseif($this->input->post('role') === 'admin') $this->_proses_login_admin($this->input->post('username'));
+		else {
+			?>
+			<script>
+				alert('role tidak tersedia!')
+			</script>
+			<?php
+		}
+	}
 
-        public function register()
-	{
-            if ($this->session->userdata('email')){
-            redirect('admin/dashboard');
-        }
+	protected function _proses_login_pegawai($username){
+		$get_pegawai = $this->m_pegawai->lihat_username($username);
+		if($get_pegawai){
+			if($get_pegawai->password == $this->input->post('password')){
+				$session = [
+					'kode' => $get_pegawai->kode,
+					'nama' => $get_pegawai->nama,
+					'username' => $get_pegawai->username,
+					'password' => $get_pegawai->password,
+					'role' => $this->input->post('role'),
+					'jam_masuk' => date('H:i:s')
+				];
 
-            $this->form_validation->set_rules('nama', 'Nama', 'required|trim',[
-                'required' => 'Nama harus diisi!'
-            ]);
-            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[admin.email]',[
-                'required' => 'Email harus diisi!',
-                'valid_email' => 'Email tidak valid!',
-                'is_unique' => 'Email ini sudah terdaftar!'
-            ]);
-            $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[4]|matches[password2]',[
-                'min_length' => 'Password terlalu pendek!',
-                'matches' => 'Password tidak sama!'
-            ]);
-            $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-            
-            if($this->form_validation->run() == FALSE){
-            $data['title'] = 'Oktias Bakery & Cake : Admin Register';
-            $this->load->view('admin/nav_admin', $data, FALSE);
-            $this->load->view('admin/register', $data, FALSE);
-            $this->load->view('admin/foot_admin', $data, FALSE);
-            }else {
-                $data = [
-                    'nama' => htmlspecialchars($this->input->post('nama', TRUE)),
-                    'email' => htmlspecialchars($this->input->post('email', TRUE)),
-                    'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                    'tanggal_daftar' => time()
-                ];
-                $this->db->insert('admin', $data);
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat! Anda berhasil daftar. Silahkan Login!</div>');
-                redirect('auth');
-            }
-        }
-	
-        public function logout(){
-            $this->session->unset_userdata('email');
-            $this->session->unset_userdata('password');
-            
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Anda berhasil keluar!</div>');
-            redirect('auth');
-        }
+				$this->session->set_userdata('login', $session);
+				$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+				redirect('dashboard');
+			} else {
+				$this->session->set_flashdata('error', 'Password Salah!');
+				redirect();
+			}
+		} else {
+			$this->session->set_flashdata('error', 'Username Salah!');
+			redirect();
+		}
+	}
+
+	protected function _proses_login_admin($username){
+		$get_pengguna = $this->m_pengguna->lihat_username($username);
+		if($get_pengguna){
+			if($get_pengguna->password == $this->input->post('password')){
+				$session = [
+					'kode' => $get_pengguna->kode,
+					'nama' => $get_pengguna->nama,
+					'username' => $get_pengguna->username,
+					'password' => $get_pengguna->password,
+					'role' => $this->input->post('role'),
+					'jam_masuk' => date('H:i:s')
+				];
+
+				$this->session->set_userdata('login', $session);
+				$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+				redirect('dashboard');
+			} else {
+				$this->session->set_flashdata('error', 'Password Salah!');
+				redirect();
+			}
+		} else {
+			$this->session->set_flashdata('error', 'Username Salah!');
+			redirect();
+		}
+	}
+
+
+protected function _proses_login_pimpinan($username){
+	$get_pimpinan = $this->m_pengguna->lihat_username($username);
+	if($get_pimpinan){
+		if($get_pimpinan->password == $this->input->post('password')){
+			$session = [
+				'kode' => $get_pimpinan->kode,
+				'nama' => $get_pimpinan->nama,
+				'username' => $get_pimpinan->username,
+				'password' => $get_pimpinan->password,
+				'role' => $this->input->post('role'),
+				'jam_masuk' => date('H:i:s')
+			];
+
+			$this->session->set_userdata('login', $session);
+			$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+			redirect('dashboardku');
+		} else {
+			$this->session->set_flashdata('error', 'Password Salah!');
+			redirect();
+		}
+	} else {
+		$this->session->set_flashdata('error', 'Username Salah!');
+		redirect();
+	}
+}
+
 }

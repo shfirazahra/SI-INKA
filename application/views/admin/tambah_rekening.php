@@ -1,21 +1,29 @@
 <div class="container">
-    <h1 class="h3 mb-2 text-gray-800 mx-1">Tambah Rekening</h1>
+    <h1 class="h3 mb-2 text-gray-800 mx-1">Tambah Barang</h1>
     <?= $this->session->flashdata('message'); ?>
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <form class="col-lg-12" action="<?php echo base_url('admin/rekening/tambah_rekening'); ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group my-3">
-                        <label>Nama Bank</label>
-                        <input type="text" class="form-control" name="nama_bank" value="<?php echo set_value('nama_bank'); ?>"required>
+                        <label>Nama Barang</label>
+                        <input type="text" class="form-control" name="nama_barang" value="<?php echo set_value('nama_bank'); ?>"required>
                         </div>
                     <div class="form-group my-3">
-                        <label>Nomor Rekening</label>
-                        <input type="number" class="form-control" name="nomor_rekening" value="<?php echo set_value('nomor_rekening'); ?>"required>
+                        <label>Kode Barang</label>
+                        <input type="number" class="form-control" name="id_barang" value="<?php echo set_value('id_barang'); ?>"required>
                     </div>
                     <div class="form-group my-3">
-                        <label>Nama Pemilik (atas nama)</label>
-                        <input type="text" class="form-control" name="nama_pemilik" value="<?php echo set_value('nama_pemilik'); ?>"required>
+                        <label>Kategori</label>
+                        <input type="text" class="form-control" name="kategori" value="<?php echo set_value('nama_pemilik'); ?>"required>
+                    </div>
+                    <div class="form-group my-3">
+                        <label>Merk</label>
+                        <input type="text" class="form-control" name="merk" value="<?php echo set_value('nama_pemilik'); ?>"required>
+                    </div>
+                    <div class="form-group my-3">
+                        <label>Ruangan</label>
+                        <input type="text" class="form-control" name="ruangan" value="<?php echo set_value('nama_pemilik'); ?>"required>
                     </div>
                         <a href="#" class="btn btn-secondary mb-3 btn-icon-split" onclick="window.history.go(-1)">
                             <span class="icon text-white-50">

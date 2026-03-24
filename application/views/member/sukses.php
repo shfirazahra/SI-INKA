@@ -14,7 +14,7 @@
                     echo '</div>';
                 }?>
                 
-                <p>Segera lakukan konfirmasi pembayaran, agar produk bisa segera kami proses. Silahkan <a class="text-warning" href="<?= base_url('dashboard/belanja')?>"><u>Konfirmasi disini</u></a> , terima kasih.</p>
+                <p>Segera lakukan konfirmasi pembayaran, agar bisa segera kami proses. Silahkan <a class="text-warning" href="<?= base_url('dashboard/belanja')?>"><u>Konfirmasi disini</u></a> , terima kasih.</p>
             </div>
         </div>
     </div>

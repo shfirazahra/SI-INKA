@@ -6,10 +6,7 @@ class Konfigurasi extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('konfigurasi_model');
-        if(!$this->session->userdata('email')){
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Silahkan Login terlebih dahulu!</div>');
-            redirect('auth/');
-        }
+       
     }
 
     //Konfigurasi Umum

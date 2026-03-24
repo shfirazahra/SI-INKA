@@ -8,8 +8,8 @@
     <div class="container my-auto">
         <div class="row footer-bottom d-flex justify-content-between align-items-center">
             <p class="col-lg-12 footer-text text-center">
-                &copy;<script>document.write(new Date().getFullYear());</script> Toko Online with <i class="fa fa-heart" aria-hidden="true"></i> by 
-            <a href="" target="_blank">RINDU</a>
+                &copy;<script>document.write(new Date().getFullYear());</script> Kantor Wilayah ATR/BPN Provinsi Jawa Tengah by 
+            <a href="" target="_blank">Shafira</a>
         </div>
     </div>
 </footer>

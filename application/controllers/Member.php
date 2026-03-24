@@ -18,7 +18,7 @@ class Member extends CI_Controller {
             ]);
             
             if($this->form_validation->run() == FALSE){
-            $data['title'] = 'Oktias Bakery & Cake : Member Login';
+            $data['title'] = 'Sistem Informasi Inventaris Kantor Wilayah ATR/BPN Jawa Tengah';
             $this->load->view('templates/navbar', $data, FALSE);
             $this->load->view('login', $data, FALSE);
             $this->load->view('templates/footer');
@@ -44,7 +44,9 @@ class Member extends CI_Controller {
                         'password' => $users['password']
                     ];
                     $this->session->set_userdata($data);
-                    redirect('dashboard/belanja');
+                    redirect('dashboard');
+                    $this->session->set_userdata($data);
+                    redirect('dashboardku');
                 }else{
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kata sandi salah!
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -65,7 +67,7 @@ class Member extends CI_Controller {
             $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim',[
                 'required' => 'Nama harus diisi!'
             ]);
-            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[admin.email]',[
+            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_admin.email]',[
                 'required' => 'Email harus diisi!',
                 'valid_email' => 'Email tidak valid!',
                 'is_unique' => 'Email ini sudah terdaftar!'
@@ -84,7 +86,7 @@ class Member extends CI_Controller {
             $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
             
             if($this->form_validation->run() == FALSE){
-            $data['title'] = 'Oktias Bakery & Cake : Registration';
+            $data['title'] = 'Sistem Informasi Inventaris Kantor Wilayah ATR/BPN Jawa Tengah';
             $this->load->view('templates/navbar', $data, FALSE);
             $this->load->view('register', $data, FALSE);
             $this->load->view('templates/footer');
@@ -106,7 +108,6 @@ class Member extends CI_Controller {
                 redirect('member');
             }
         }
-        
         public function logout(){
             $this->session->unset_userdata('id_user');
             $this->session->unset_userdata('nama');
@@ -119,4 +120,4 @@ class Member extends CI_Controller {
                 </button></div>');
             redirect('member');
         }
-}
+        }

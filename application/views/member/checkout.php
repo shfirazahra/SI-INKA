@@ -11,36 +11,23 @@
                             <th class="column-1">Gambar</th>
                             <th class="column-2">Produk</th>
                             <th class="column-3">Harga</th>
-                            <th class="column-4 p-l-70">Jumlah</th>
                             <th class="column-5">Sub Total</th>
                     </tr>
                     <?php 
                     foreach ($keranjang as $keranjang) {
                         //ambil data
-                        $id_produk = $keranjang['id'];
-                        $produk = $this->produk_model->getbyid($id_produk);
+                        $kode_bimbel = $keranjang['id'];
+                        $tb_bimbel = $this->produk_model->getbyid($kode_bimbel);
                     ?>    
                     <tr class="table-row">
                         <td class="column-1">
                             <div class="cart-img-product b-rad-4 o-f-hidden">
-                                <img src="<?= base_url('assets/admin/foto/').$produk->gambar ?>" alt="<?= $keranjang['name'] ?>">
+                                <img src="<?= base_url('assets/admin/foto/').$tb_bimbel->foto ?>" alt="<?= $keranjang['name'] ?>">
                             </div>
                         </td>
                         <td class="column-2"><?= $keranjang['name'] ?></td>
                         <td class="column-3">Rp. <?= number_format($keranjang['price'],'0',',','.') ?></td>
-                        <td class="column-4">
-                            <div class="flex-w  bo5 centered of-hidden w-size17">
-                            <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-                                <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                            </button>
-
-                            <input class="size8  m-text18 t-center num-product" type="number" name="num-product1" value="<?= $keranjang['qty'] ?>">
-                            <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-                                <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                            </button>
-
-                            </div>
-                        </td>
+                        
                         <td class="column-5">Rp. 
                             <?php 
                             $subtotal = $keranjang['price'] * $keranjang['qty'];
@@ -52,9 +39,9 @@
                     }
                     ?>
                     <tr>
-                        <td class="column-1" colspan="4">Total Belanja</td>
+                        <td class="column-1" colspan="4">Total Booking</td>
                         <td class="column-2">Rp. <?= number_format($this->cart->total(),'0',',','.')?></td> 
-                    </tr>
+                        </tr>
                 </table><hr>
             </div>
         </div>
@@ -71,27 +58,26 @@
                 <div class="bo4 size15 m-b-25">
                     <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="nama" name="id_transaksi" placeholder="Kode Transaksi" value="<?= $kode_transaksi ?>"readonly required>
                 </div>
-            <h4 class="m-text15 ">Nama Penerima</h4>
+            <h4 class="m-text15 ">Nama Pendaftar</h4>
                 <div class="bo4 size15 m-b-25">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="nama" name="nama" placeholder="Nama Penerima" value="<?= $pelanggan->nama ?>"required>
                 </div>
-            <h4 class="m-text15">Email Penerima</h4>
+            <h4 class="m-text15">Email Pendaftar</h4>
                 <div class="bo4 size15 m-b-25">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="email" name="email" placeholder="Email Penerima" value="<?= $pelanggan->email ?>"required>
                 </div>
-            <h4 class="m-text15">Alamat Pengiriman</h4>
+            <h4 class="m-text15">Alamat Pendaftar</h4>
                 <div class="bo4 size15 m-b-25">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="alamat" name="alamat" placeholder="Alamat Pengiriman" value="<?= $pelanggan->alamat ?>"required>
                 </div>
-            <h4 class="m-text15">Telepon</h4>
+            <h4 class="m-text15">Telepon Pendaftar</h4>
                 <div class="bo4 size15 m-b-25">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="telepon" name="telepon" placeholder="Telepon" value="<?= $pelanggan->telepon ?>"required>
                 </div>
-
             <div class="w-size25">
                 <!-- Button -->
                 <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" 
-                        type="submit" value="submit" class="btn submit_btn">Checkout
+                        type="submit" value="submit" class="btn submit_btn">Bayar
                 </button>
             </div>
         </form>

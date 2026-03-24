@@ -15,7 +15,7 @@ class Rekening extends CI_Controller {
 
     public function index()
 	{
-            $data['title'] = 'Rekening Produk';
+            $data['title'] = 'Data Barang';
             
             $data['data'] = $this->rekening_model->get_all();
             $this->load->view('admin/nav', $data, FALSE);
@@ -25,21 +25,21 @@ class Rekening extends CI_Controller {
 
     public function tambah_rekening(){
         
-        $this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim',[
+        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim',[
             'required' => 'Nama rekening harus diisi.'
         ]);
 
-        $this->form_validation->set_rules('nomor_rekening', 'Nomor Rekening', 'required|trim|is_unique[rekening.nomor_rekening]',[
+        $this->form_validation->set_rules('id_barang', 'Nomor Rekening', 'required|trim|is_unique[rekening.id_barang]',[
             'required' => 'Nomor Rekening harus diisi.',
             'is_unique' => 'Nomor Rekening Sudah Ada. Buat rekening baru!'
         ]);
-        $this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim',[
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim',[
             'required' => 'Nama pemilik harus diisi.'
         ]);
         
         if ($this->form_validation->run() == false){
 
-        $data['title'] = 'Oktias Bakery & Cake : Tambah Rekening';
+        $data['title'] = 'Kanwil ATR/BPN Jawa Tengah : Tambah Rekening';
         $this->load->view('admin/nav', $data, FALSE);
         $this->load->view('admin/tambah_rekening', $data, FALSE);
         $this->load->view('admin/foot', $data, FALSE);
@@ -47,9 +47,9 @@ class Rekening extends CI_Controller {
             $input = $this->input;
             
             $data = [
-            'nama_bank' => $input->post('nama_bank', true),
-            'nomor_rekening' => $input->post('nomor_rekening', true),
-            'nama_pemilik' => $input->post('nama_pemilik', true)
+            'nama_barang' => $input->post('nama_barang', true),
+            'id_barang' => $input->post('id_barang', true),
+            'kategori' => $input->post('kategori', true)
         ];
         $this->rekening_model->tambah($data);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditambahkan.
@@ -62,20 +62,20 @@ class Rekening extends CI_Controller {
     }
     
     //Edit
-    public function update_rekening($id_rekening){
+    public function update_rekening($id_barang){
             
-        if($id_rekening==null){
+        if($id_barang==null){
             redirect('admin/rekening');
         }else{
-        $this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required',[
+        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required',[
         'required' => 'Nama Bank harus diisi.']);
-        $this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim',[
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim',[
                 'required' => 'Urutan harus diisi.'
             ]);
             
             if ($this->form_validation->run() == false){
-            $rekening = $this->rekening_model->detail($id_rekening);
-            $data =array ('title' => 'Update Rekening : '.$rekening->nama_pemilik, 'rekening' => $rekening);
+            $rekening = $this->rekening_model->detail($id_barang);
+            $data =array ('title' => 'Update Rekening : '.$rekening->nama_barang, 'rekening' => $rekening);
             $this->load->view('admin/nav', $data, FALSE);
             $this->load->view('admin/update_rekening', $data, FALSE);
             $this->load->view('admin/foot', $data, FALSE);
@@ -84,10 +84,11 @@ class Rekening extends CI_Controller {
                 $input = $this->input;
                 
                 $data = [
-                'id_rekening' => $id_rekening,
-                'nama_bank' => $input->post('nama_bank', true),
-                'nomor_rekening' => $input->post('nomor_rekening', true),
-                'nama_pemilik' => $input->post('nama_pemilik', true)
+                'id_barang' => $id_barang,
+                'nama_barang' => $input->post('nama_barang', true),
+                'merk' => $input->post('merk', true),
+                'ruangan' => $input->post('ruangan', true),
+                'kategori' => $input->post('kategori', true)
             ];
             $this->rekening_model->update_rekening($data);
             $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Data berhasil diupdate.
@@ -101,7 +102,7 @@ class Rekening extends CI_Controller {
     }
     
     public function hapus_rekening($id){
-        $data = array('id_rekening' => $id);
+        $data = array('id_barang' => $id);
         $this->rekening_model->hapus($data);
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus.
                 <button class="close" type="button" data-dismiss="alert" aria-label="Close">

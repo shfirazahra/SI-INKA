@@ -24,15 +24,7 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Telepon</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
+               
                 <tbody>
                     <?php $nomor=1;
                     foreach($pelanggan as $data) :

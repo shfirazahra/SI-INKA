@@ -1,35 +1,103 @@
-<!-- content page -->
-<section class="bgwhite p-t-66 p-b-60">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Administrator - Login</title>
+	<link href="<?= base_url('sb-admin') ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link href="<?= base_url('sb-admin') ?>/css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="<?= base_url('sb-admin') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<style>
+        .bg-login-image {
+            background-image: url("<?= base_url('sb-admin/img/logobpn.png'); ?>");
+            background-repeat: no-repeat; 
+            background-size: 85%;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-primary">
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 p-b-30 centered">
-                <form class="leave-comment" action="<?= base_url('member'); ?>" method="post">
-                    <h4 class="m-text26 p-b-15">
-                        Login
-                    </h4>
-                    <?= $this->session->flashdata('message'); ?>
-                    <div class="bo4 size15 m-b-25">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" id="email" name="email" placeholder="Email" value="<?php echo set_value('email'); ?>">
-                        <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
 
-                    <div class="bo4 size15 m-b-25">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="password" id="password" name="password" placeholder="Password">
-                        <?php echo form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
-                    </div>
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-                    <div class="w-size25">
-                        <!-- Button -->
-                        <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" 
-                                type="submit" value="submit" class="btn submit_btn">Login
-                        </button>
-                    </div>
-                    <div class="text-center m-b-7 m-t-25">
-                    <div class="text-center mb-5">
-                        <a class="small" href="<?= base_url('member/register'); ?>">Belum punya akun? Daftar disini!</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                            <div class="text-center mb-4">
+                                <h1 class="h4 text-gray-900">Sistem Informasi Inventaris</h1>
+                                <span class="text-muted">Kantor Wilayah ATR/BPN Jawa Tengah</span>
+			                            </div>
+																		<div class="row">
+																			<div class="col-lg-12">
+																				<div class="p-5">
+																					<div class="text-center">
+																					<?php if ($this->session->flashdata('success')) : ?>
+																						<div class="alert alert-success alert-dismissible fade show" role="alert">
+																							<?= $this->session->flashdata('success') ?>
+																							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																								<span aria-hidden="true">&times;</span>
+																							</button>
+																						</div>
+																					<?php elseif($this->session->flashdata('error')) : ?>
+																						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+																							<?= $this->session->flashdata('error') ?>
+																							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																								<span aria-hidden="true">&times;</span>
+																							</button>
+																						</div>
+																					<?php endif ?>
+																					</div>
+																					<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="username" placeholder="Masukkan Username" autocomplete="off" required name="username">
+																						</div>
+																						<div class="form-group">
+																							<input type="password" class="form-control" id="password" placeholder="Masukkan Password" required name="password">
+																						</div>
+																						<div class="form-group">
+																							<select name="role" id="role" class="form-control" required>
+																								<option value="">Masuk Sebagai</option>
+																								<option value="pimpinan">Kepala Kantor</option>
+																								<option value="pegawai">Pegawai</option>
+																								<option value="admin">Admin</option>
+																							</select>
+																						</div>
+																						<button type="submit" class="btn btn-primary btn-block" name="login">
+																							Login
+																						</button>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
+															</div>
+
+														</div>
+
+													</div>
+
+	<script src="<?= base_url('sb-admin') ?>/vendor/jquery/jquery.min.js"></script>
+	<script src="<?= base_url('sb-admin') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<?= base_url('sb-admin') ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="<?= base_url('sb-admin') ?>/js/sb-admin-2.min.js"></script>
+</body>
+
+</html>

@@ -90,7 +90,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <!-- css -->
 
 <div class="container">
-<h1 class="h3 mb-2 text-gray-800 mx-1">Detail Pembelian</h1>
+<h1 class="h3 mb-2 text-gray-800 mx-1">Detail Bimbingan Belajar</h1>
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-5"> 
@@ -98,12 +98,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <?php foreach($transaksi as $data){ ?>
                     <div class="col-md-12">
                         <table class="table table-hover table-striped">
-                            <tr><br>
-                                <th width="200px">Kode Transaksi</th>
-                                <td></td>
-                                <td></td>
-                                <td>: <?= $data->id_transaksi; ?></td>
-                            </tr>
                             <tr>
                                 <th width="200px">Nama Lengkap</th>
                                 <td></td>
@@ -127,56 +121,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 <td></td>
                                 <td></td>
                                 <td>: <?= $data->telepon; ?></td>
-                            </tr>
-                            <tr>
-                                <th width="200px">Nama Bank</th>
-                                <td></td>
-                                <td></td>
-                                <td>: 
-                                <?php if ($data->nama_bank==null) { ?>
-                                  -
-                                <?php }else{ ?>
-                                <?= $data->nama_bank; }?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Atas Nama</th>
-                                <td></td>
-                                <td></td>
-                                <td>: 
-                                  <?php if ($data->rekening_pelanggan==null) { ?>
-                                  -
-                                  <?php }else{ ?>
-                                  <?= $data->rekening_pelanggan; } ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Nomor Rekening</th>
-                                <td></td>
-                                <td></td>
-                                <td>:
-                                  <?php if ($data->rekening_pembayaran==null) { ?>
-                                  -
-                                  <?php }else{ ?>
-                                  <?= $data->rekening_pembayaran; } ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td></td>
-                                <td></td>
-                                <td>: <?= $data->status; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Bukti Transfer</th>
-                                <td></td>
-                                <td></td>
-                                <td>:
-                                  <?php if ($data->bukti_bayar==null) { ?>
-                                  -
-                                  <?php }else{ ?>
-                                  <img id="myImg" src="<?= base_url(); ?>assets/admin/image/<?= $data->bukti_bayar ?>" width="200" ><?php } ?>
-                                </td>
                             </tr>
                         </table>
                     </div><br>

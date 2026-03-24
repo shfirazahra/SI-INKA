@@ -6,34 +6,34 @@ class Rekening_model extends CI_Model {
        function get_all(){
             
             $this->db->select('*');
-            $this->db->from('rekening');
-            $this->db->order_by('id_rekening', 'desc');
+            $this->db->from('barang');
+            $this->db->order_by('id_barang', 'desc');
             
             $query = $this->db->get();
             return $query->result();
         }
         function tambah($data){
-            $this->db->insert('rekening', $data);
+            $this->db->insert('barang', $data);
         }
         
         
         function update_rekening($data){
-            $this->db->where('id_rekening', $data['id_rekening']);
-            $this->db->update('rekening', $data);
+            $this->db->where('id_barang', $data['id_barang']);
+            $this->db->update('barang', $data);
         }
         
-        function detail($id_rekening) {
+        function detail($id_barang) {
             $this->db->select('*');
-            $this->db->from('rekening');
-            $this->db->where('id_rekening', $id_rekening);
-            $this->db->order_by('id_rekening', 'desc');
+            $this->db->from('barang');
+            $this->db->where('id_barang', $id_barang);
+            $this->db->order_by('id_barang', 'desc');
             $query = $this->db->get();
             
             return $query->row();
         }
         
         function hapus($data){
-            $this->db->where('id_rekening', $data['id_rekening']);
-            $this->db->delete('rekening', $data);
+            $this->db->where('id_barang', $data['id_barang']);
+            $this->db->delete('barang', $data);
         }
 }

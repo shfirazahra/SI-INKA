@@ -5,47 +5,24 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <form class="col-lg-12" action="<?php echo base_url('admin/produk/tambah_produk'); ?>" method="POST" enctype="multipart/form-data">
-                    <div class="form-group my-3">
-                        <label>Kode Produk</label>
-                        <input type="hidden" name="tanggal_post" value="<?= date('Y-m-d') ?>">
-                        <input type="text" class="form-control" name="kode_produk" value="<?= set_value('kode_produk', $kode_produk); ?>" readonly>
+                    
+					<div class="form-group my-3">
+                        <label>Kode Bimbel</label>
+                        <input type="number" class="form-control" name="kode_bimbel" value="<?php echo set_value('kode_bimbel'); ?>">
+                        <?php echo form_error('kode_bimbel', '<small class="text-danger" pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group my-3">
-                        <label>Nama Produk</label>
-                        <input type="text" class="form-control" name="nama" value="<?php echo set_value('nama'); ?>">
-                        <?php echo form_error('nama', '<small class="text-danger" pl-3">', '</small>'); ?>
+                        <label>Nama Bimbel</label>
+                        <input type="text" class="form-control" name="nama_bimbel" value="<?php echo set_value('nama_bimbel'); ?>">
+                        <?php echo form_error('nama_bimbel', '<small class="text-danger" pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group my-2">
-                        <label>Kategori Produk</label>
-                            <select name="id_kategori" class="form-control" required>
-                                <option class="form-control" value="">
-                                    --Pilih Kategori--
-                                    <?php foreach ($kategori as $kategori) { ?>
-                                    <option value="<?= $kategori->id_kategori ?>"><?= $kategori->nama_kategori ?></option>
-                                    <?php } ?>
-                                </option>
-                            </select>
+                        
+                        <label>Kategori Bimbel</label>
+                        <input type="text" class="form-control" name="id_kategori" value="<?php echo set_value('id_kategori'); ?>">
+                        <?php echo form_error('id_kategori', '<small class="text-danger" pl-3">', '</small>'); ?>
                         </div>
-                    <div class="form-group">
-                        <label>Harga (Rp)</label>
-                        <input type="number" class="form-control" name="harga" value="<?php echo set_value('harga'); ?>">
-                        <?php echo form_error('harga', '<small class="text-danger" pl-3">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Stok</label>
-                        <input type="text" class="form-control" name="stok" value="<?php echo set_value('stok'); ?>">
-                        <?php echo form_error('stok', '<small class="text-danger" pl-3">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Ukuran</label>
-                        <input type="text" class="form-control" name="ukuran" value="<?php echo set_value('ukuran'); ?>">
-                        <?php echo form_error('ukuran', '<small class="text-danger" pl-3">', '</small>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label>Berat</label>
-                        <input type="text" class="form-control" name="berat" value="<?php echo set_value('berat'); ?>">
-                        <?php echo form_error('berat', '<small class="text-danger" pl-3">', '</small>'); ?>
-                    </div>
+                    
                     <div class="form-group">
                         <label>Deskripsi</label>
                         <textarea class="form-control" rows="10" name="deskripsi" value=""><?php echo set_value('deskripsi'); ?></textarea>

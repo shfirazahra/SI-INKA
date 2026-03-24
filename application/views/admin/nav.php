@@ -6,20 +6,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="<?= base_url('assets'); ?>/img/Logo.png" type="image/png">
+  <link rel="icon" href="<?= base_url('assets'); ?>/img/logobpn.png" type="image/png">
   <meta name="description" content="">
   <meta name="author" content="">
 
   <title><?= $title ?></title>
 
   <!-- Custom fonts for this template-->
-  <link href="<?= base_url(); ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<?= base_url(); ?>sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   
   <!-- Custom styles for this template-->
-  <link href="<?= base_url(); ?>assets/admin/css/sb-admin-2.css" rel="stylesheet">
+  <link href="<?= base_url(); ?>sb-admin/css/sb-admin-2.css" rel="stylesheet">
   
   <!-- Custom styles for this page -->
-  <link href="<?= base_url(); ?>assets/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="<?= base_url(); ?>sb-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
 </head>
@@ -33,19 +33,22 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin/dashboard'); ?>">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fa fa-shopping-cart"></i>
+          <i class="fa fa-book"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Oktias</div>
+        <span class="brand-text font-weight-light mx-3">Kanwil ATR/BPN Jateng</span>
+       
       </a>
+
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
+        <a class="nav-link" href="<?= base_url('dashboard'); ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -55,7 +58,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Admin
+        Pilih Menu
       </div>
 
       
@@ -63,7 +66,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Pengaturan Website</span>
+          <span>Profile Website</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -75,53 +78,70 @@
           </div>
         </div>
       </li>
-
-       <!-- Nav Item - Produk Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/kategori'); ?>">
-          <i class="fas fa-fw fa-tags"></i>
-          <span>Kategori produk</span></a>
-      </li>
-     
       <!-- Nav Item - Produk Collapse Menu -->
       <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/rekening'); ?>">
-          <i class="fas fa-fw fa-mobile"></i>
-          <span>Rekening</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseThree">
+        <i class="nav-icon fas fa-user"></i>
+          <span>Data User</span>
+        </a>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Data:</h6>
+            <a class="collapse-item" href="<?= base_url('pinpinan'); ?>">Login Kepala Kantor</a>
+            <a class="collapse-item" href="<?= base_url('pegawai'); ?>">Login Pegawai</a>
+            <a class="collapse-item" href="<?= base_url('admin'); ?>">Login Admin</a>
+            
+            </div>
+        </div>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('barang'); ?>">
+          <i class="nav-icon fas fa-fw fa-box"></i>
+          <span>Data Barang</span></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('kategori'); ?>">
+          <i class="nav-icon fas fa-sign"></i>
+          <span>Kategori</span></a>
+      </li>
+<!-- Heading -->
+<div class="sidebar-heading">
+        Transaksi
+      </div>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('penerimaan'); ?>">
+          <i class="nav-icon far fa-arrow-alt-circle-right"></i>
+          <span>Barang Masuk</span></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('pengeluaran'); ?>">
+          <i class="nav-icon far fa-arrow-alt-circle-left"></i>
+          <span>Barang Keluar</span></a>
+      </li>
+<!-- Heading -->
+<div class="sidebar-heading">
+        Laporan
+      </div>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('supplier'); ?>">
+          <i class="fas fa-dolly"></i>
+          <span>Data Sumber Barang</span></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('peminjam'); ?>">
+          <i class="fas fa-truck"></i>
+          <span>Data Peminjaman</span></a>
+      </li>
+     <!-- Heading -->
+<div class="sidebar-heading">
+        Pengaturan
+      </div>
+      <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('logout'); ?>">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span></a>
       </li>
             
-      <!-- Nav Item - Produk Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/produk'); ?>">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Data produk</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Users
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/pelanggan'); ?>">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Data Pelanggan</span>
-          </a>
-      </li>
-
      
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/pembelian'); ?>">
-          <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>Data Pembelian</span></a>
-      </li>
-
-
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

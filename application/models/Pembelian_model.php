@@ -13,11 +13,11 @@ class Pembelian_model extends CI_Model {
     }
 
     function user($id_user){
-        $this->db->select('header_transaksi.*, produk.nama_produk, transaksi.jumlah, transaksi.total_harga');
+        $this->db->select('header_transaksi.*, tb_bimbel.nama_bimbel, transaksi.jumlah, transaksi.total_harga');
         $this->db->from('header_transaksi');
         $this->db->where('header_transaksi.id_user', $id_user);
         $this->db->join('transaksi','transaksi.id_transaksi = header_transaksi.id_transaksi', 'left');
-        $this->db->join('produk', 'produk.id_produk = transaksi.id_produk', 'left');
+        $this->db->join('tb_bimbel', 'tb_bimbel.kode_bimbel = transaksi.kode_bimbel', 'left');
         $this->db->group_by('header_transaksi.id_transaksi');
         $this->db->order_by('id_transaksi', 'desc');
         $query = $this->db->get();
@@ -35,14 +35,13 @@ class Pembelian_model extends CI_Model {
     }
 
     function get_all(){
-        $this->db->select('transaksi.*,users.nama,produk.nama_produk, header_transaksi.status, header_transaksi.telepon');
+        $this->db->select('transaksi.*,users.nama,tb_bimbel.nama_bimbel, tb_bimbel.nama_guru, tb_bimbel.jadwal, header_transaksi.status, header_transaksi.telepon');
         $this->db->from('transaksi');
         $this->db->join('users', 'users.id_user = transaksi.id_user', 'left');
-        $this->db->join('produk', 'produk.id_produk = transaksi.id_produk', 'left');
+        $this->db->join('tb_bimbel', 'tb_bimbel.kode_bimbel = transaksi.kode_bimbel', 'left');
         $this->db->join('header_transaksi', 'header_transaksi.id_transaksi = transaksi.id_transaksi', 'left');
         $this->db->order_by('id_transaksi', 'desc');
         $query = $this->db->get();
-
         return $query->result();
     }
 
@@ -105,11 +104,11 @@ class Pembelian_model extends CI_Model {
     }
 
     function transaksi() {
-        $this->db->select('transaksi.*,users.nama,produk.nama_produk, header_transaksi.status, header_transaksi.telepon');
+        $this->db->select('transaksi.*,users.nama,tb_bimbel.nama_bimbel, header_transaksi.status, header_transaksi.telepon');
         $this->db->from('transaksi');
         $this->db->where('status','Konfirmasi');
         $this->db->join('users', 'users.id_user = transaksi.id_user', 'left');
-        $this->db->join('produk', 'produk.id_produk = transaksi.id_produk', 'left');
+        $this->db->join('tb_bimbel', 'tb_bimbel.kode_bimbel = transaksi.kode_bimbel', 'left');
         $this->db->join('header_transaksi', 'header_transaksi.id_transaksi = transaksi.id_transaksi', 'left');
         $this->db->order_by('id_transaksi', 'desc');
         $query = $this->db->get();

@@ -15,7 +15,7 @@ class Keranjang extends CI_Controller {
     public function index() {
         $data['keranjang'] = $this->cart->contents();
             
-        $data['title'] = 'Keranjang Belanja : Oktias Bakery & Cake';
+        $data['title'] = 'Keranjang Belanja : Gobel';
         $this->load->view('templates/navbar', $data);
         $this->load->view('member/keranjang', $data);
         $this->load->view('templates/footer');
@@ -95,7 +95,7 @@ class Keranjang extends CI_Controller {
                     $data = [
                     'id_user' => $pelanggan->id_user,
                     'id_transaksi' => $i->post('id_transaksi'),
-                    'id_produk' => $keranjang['id'],
+                    'kode_bimbel' => $keranjang['id'],
                     'harga' => $keranjang['price'],
                     'jumlah' => $keranjang['qty'],
                     'total_harga' => $subtotal,
@@ -103,7 +103,7 @@ class Keranjang extends CI_Controller {
                 $this->pembelian_model->tambah($data);
                 }
                 $this->cart->destroy();
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Belanja Berhasil. Silahkan konfirmasi pembayaran agar bisa segera kami proses.
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Booking Berhasil. Silahkan konfirmasi pembayaran agar bisa segera kami proses.
                     <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -135,7 +135,7 @@ class Keranjang extends CI_Controller {
             $data = ['rowid' => $rowid,
                     'qty' => $this->input->post('qty')];
             $this->cart->update($data);
-            $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Belanja berhasil diupdate.
+            $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Data Booking berhasil diupdate.
                 <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button></div>');
@@ -149,7 +149,7 @@ class Keranjang extends CI_Controller {
 
         if($rowid){
             $this->cart->remove($rowid);
-            $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Keranjang belanja berhasil dihapus.
+            $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Data Booking Bimbel sudah dihapus. Terimakasih
                 <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button></div>');
@@ -159,7 +159,7 @@ class Keranjang extends CI_Controller {
 
     public function hapus_keranjang(){
         $this->cart->destroy();
-        $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Keranjang belanja berhasil dihapus.
+        $this->session->set_flashdata('message', '<div class="alert alert-warning m-t-10" role="alert">Data Booking Bimbel sudah dihapus. Terimakasih
             <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button></div>');

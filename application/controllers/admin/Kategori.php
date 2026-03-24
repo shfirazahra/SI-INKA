@@ -24,7 +24,7 @@ class Kategori extends CI_Controller {
         }
 
     public function tambah_kategori(){
-        $this->form_validation->set_rules('nama_kategori', 'Nama Kategori', 'required|trim|is_unique[kategori.nama_kategori]',[
+        $this->form_validation->set_rules('nama_kategori', 'Nama Kategori', 'required|trim|is_unique[tb_katbimbel.nama_kategori]',[
             'required' => 'Nama Kategori harus diisi.',
             'is_unique' => 'Nama Kategori Sudah Ada. Buat kategori baru!'
         ]);
@@ -33,7 +33,7 @@ class Kategori extends CI_Controller {
         ]);
         
         if ($this->form_validation->run() == false){
-        $data['title'] = 'Oktias Bakery & Cake : Tambah Kategori';
+        $data['title'] = 'Gobel : Tambah Kategori';
         $this->load->view('admin/nav', $data, FALSE);
         $this->load->view('admin/tambah_kategori', $data, FALSE);
         $this->load->view('admin/foot', $data, FALSE);

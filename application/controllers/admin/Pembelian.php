@@ -21,6 +21,9 @@ class Pembelian extends CI_Controller {
             $this->load->view('admin/foot');
             
         }
+       
+
+
     public function hapus_pembelian($id_transaksi){
         $data = array('id_transaksi' => $id_transaksi);
         $this->pembelian_model->hapus_pembelian($data);
@@ -40,6 +43,18 @@ class Pembelian extends CI_Controller {
             $data = array('title'=> 'Detail Pembelian','transaksi'=>$transaksi);
             $this->load->view('admin/nav', $data);
             $this->load->view('admin/detail_pembelian', $data);
+            $this->load->view('admin/foot');
+        }
+    }
+    public function cetak_pembelian($id_barang){
+        $rekening = $this->pembelian_model->cetak($id_barang);
+
+        if($id_barang==''){
+            redirect('admin/pembelian');
+        }else{
+            $data = array('title'=> 'Detail Pembelian','rekening'=>$rekening);
+            $this->load->view('admin/nav', $data);
+            $this->load->view('admin/c_produk', $data);
             $this->load->view('admin/foot');
         }
     }

@@ -1,29 +1,30 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
-    
-    public function __construct() {
-        parent::__construct();
-        if(!$this->session->userdata('email')){
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Silahkan Login terlebih dahulu!</div>');
-            redirect('auth');
-        }
-        $this->load->model('produk_model');
-        $this->load->model('pelanggan_model');
-    }
+class Dashboard extends CI_Controller{
+	public function __construct(){
+		parent::__construct();
+		if($this->session->login['role'] != 'petugas' && $this->session->login['role'] != 'admin') redirect();
+		$this->data['aktif'] = 'dashboard';
+		$this->load->model('M_barang', 'm_barang');
+		$this->load->model('M_customer', 'm_customer');
+		$this->load->model('M_supplier', 'm_supplier');
+		$this->load->model('M_petugas', 'm_petugas');
+		$this->load->model('M_pengeluaran', 'm_pengeluaran');
+		$this->load->model('M_penerimaan', 'm_penerimaan');
+		$this->load->model('M_pengguna', 'm_pengguna');
+		$this->load->model('M_toko', 'm_toko');
+	}
 
-    public function index()
-	{
-            $data['title'] = 'Oktias Bakery & Cake : Admin';
-            $data['kategori'] = $this->db->query("SELECT count(id_kategori) FROM kategori ")->result_array();
-            $data['rekening'] = $this->db->query("SELECT count(id_rekening) FROM rekening ")->result_array();
-            $data['produk'] = $this->db->query("SELECT count(id_produk) FROM produk ")->result_array();
-            $data['pelanggan'] = $this->db->query("SELECT count(id_user) FROM users ")->result_array();
-            $data['getproduk'] = $this->produk_model->getProduk(5);
-            $data['transaksi'] = $this->pembelian_model->getPembelian(5);
-            $this->load->view('admin/nav', $data, FALSE);
-            $this->load->view('admin/dashboard', $data, FALSE);
-            $this->load->view('admin/foot', $data, FALSE);
-        }
+	public function index(){
+		$this->data['title'] = 'Halaman Dashboard';
+		$this->data['jumlah_barang'] = $this->m_barang->jumlah();
+		$this->data['jumlah_customer'] = $this->m_customer->jumlah();
+		$this->data['jumlah_supplier'] = $this->m_supplier->jumlah();
+		$this->data['jumlah_petugas'] = $this->m_petugas->jumlah();
+		$this->data['jumlah_pengeluaran'] = $this->m_pengeluaran->jumlah();
+		$this->data['jumlah_penerimaan'] = $this->m_penerimaan->jumlah();
+		$this->data['jumlah_pengguna'] = $this->m_pengguna->jumlah();
+		$this->data['toko'] = $this->m_toko->lihat();
+		$this->load->view('dashboard', $this->data);
+	}
 }

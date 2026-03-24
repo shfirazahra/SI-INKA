@@ -20,8 +20,8 @@ class Pelanggan extends CI_Controller {
             $this->load->view('admin/pelanggan', $data, FALSE);
             $this->load->view('admin/foot');
     }
-    public function detail_pelanggan($id_user){
-        $data['pelanggan'] = $this->pelanggan_model->get($id_user);
+    public function detail_pelanggan($users){
+        $data['pelanggan'] = $this->pelanggan_model->get($users);
         
         if($id_user==null){
             redirect('admin/pelanggan');
@@ -32,8 +32,8 @@ class Pelanggan extends CI_Controller {
         $this->load->view('admin/foot');
         }
     }
-    public function hapus_pelanggan($id){
-        $data = array('id_user' => $id);
+    public function hapus_pelanggan($id_user){
+        $data = array('id_user' => $id_user);
         $this->admin->hapus($data, 'users');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus.
                 <button class="close" type="button" data-dismiss="alert" aria-label="Close">

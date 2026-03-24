@@ -23,79 +23,63 @@ class Produk extends CI_Controller {
         $this->load->view('admin/foot', $data, FALSE);
     }
 
-    public function tambah_produk(){
-        //Ambil data kategori
-        $kategori = $this->kategori_model->get_all();
+    public function tambah_produk($id_produk=null){
+          //Ambil data kategori
+          $kategori = $this->kategori_model->get_all();
         
-        $this->form_validation->set_rules('id_kategori', 'kategori produk', 'required|trim',[
-            'required' => 'kategori produk harus diisi.'
-        ]);
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim',[
+          $this->form_validation->set_rules('id_kategori', 'kategori produk', 'required|trim',[
+              'required' => 'kategori produk harus diisi.'
+          ]);
+          $this->form_validation->set_rules('nama_bimbel', 'Nama Bimbel', 'required|trim',[
+              'required' => 'Nama produk harus diisi.'
+          ]);
+          $this->form_validation->set_rules('kode_bimbel', 'Kode Bimbel', 'required|trim',[
             'required' => 'Nama produk harus diisi.'
         ]);
-        $this->form_validation->set_rules('harga', 'Harga', 'required|trim',[
-            'required' => 'Harga harus diisi.'
-        ]);
-        $this->form_validation->set_rules('stok', 'Stok', 'required|trim',[
-            'required' => 'Stok harus diisi.'
-        ]);
-        $this->form_validation->set_rules('ukuran', 'Ukuran', 'required|trim',[
-            'required' => 'Ukuran harus diisi.'
-        ]);
-        $this->form_validation->set_rules('berat', 'Berat', 'required|trim',[
-            'required' => 'Berat harus diisi.'
-        ]);
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim',[
-            'required' => 'Deskripsi harus diisi.'
-        ]);
-        
+         
+         
+          $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim',[
+              'required' => 'Deskripsi harus diisi.'
+          ]);
+          
+           
         if ($this->form_validation->run() == false){
 
-        // Mengenerate ID Barang
-        $kode_terakhir = $this->produk_model->getMax('produk', 'kode_produk');
-        $kode_tambah = substr($kode_terakhir, -6, 6);
-        $kode_tambah++;
-        $number = str_pad($kode_tambah, 6, '0', STR_PAD_LEFT);
-        $kode_produk['kode_produk'] = 'KP' . $number;
-        $data = array ('title' => 'Tambah Produk', 
-                'kode_produk'=> $kode_produk,
-                'kategori' => $kategori);
-        $this->load->view('admin/nav', $data,$kode_produk, FALSE);
-        $this->load->view('admin/tambah_produk', $kode_produk, $data, FALSE);
-        $this->load->view('admin/foot', $data, $kode_produk, FALSE);
-        //End validasi
-    }else{
-        $config['upload_path'] ='assets/admin/foto/';
-        $config['allowed_types'] ='jpg|png|jpeg';
-        $config['max_size'] ='2048';
-        $this->load->library('upload',$config);
-        
-        if($this->upload->do_upload('foto')){
+           
+            $data['tb_databarang'] = $this->db->get('tb_databarang');
+            $kode['tb_databarang'] = $this->db->get('tb_databarang');
+            $this->load->view('admin/nav', $data,$kode, FALSE);
+            $this->load->view('admin/tambah_produk', $kode, $data, FALSE);
+            $this->load->view('admin/foot', $data, $kode, FALSE);
+            //End validasi
+        }else{
+            $config['upload_path'] ='assets/admin/foto/';
+            $config['allowed_types'] ='jpg|png|jpeg';
+            $config['max_size'] ='2048';
+            $this->load->library('upload',$config);
             
-            $gbr = $this->upload->data(); 
-            //proses insert
-            $data = [
-            'id_kategori' => $this->input->post('id_kategori', true),
-            'kode_produk' => $this->input->post('kode_produk', true),
-            'nama_produk' => htmlspecialchars($this->input->post('nama', true)),
-            'harga' => htmlspecialchars($this->input->post('harga', true)),
-            'stok' => htmlspecialchars($this->input->post('stok', true)),
-            'ukuran' => htmlspecialchars($this->input->post('ukuran', true)),
-            'berat' => htmlspecialchars($this->input->post('berat', true)),
-            'deskripsi' => htmlspecialchars($this->input->post('deskripsi', true)),
-            'tanggal_post' => $this->input->post('tanggal_post', true),
-            'gambar' => $gbr['file_name']
-        ];
-            $this->produk_model->tambah($data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditambahkan.
-                    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>');
-            redirect('admin/produk', 'refresh');
+            if($this->upload->do_upload('foto')){
+                
+                $gbr = $this->upload->data(); 
+                //proses insert
+                $data = [
+                'id_kategori' => $this->input->post('id_kategori', true),
+                'kode_bimbel' => $this->input->post('kode_bimbel', true),
+                'nama_bimbel' => htmlspecialchars($this->input->post('nama_bimbel', true)),
+               
+                'deskripsi' => htmlspecialchars($this->input->post('deskripsi', true)),
+                'foto' => $gbr['file_name']
+            ];
+                $this->produk_model->tambah($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil ditambahkan.
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>');
+                redirect('admin/produk', 'refresh');
+                }
             }
         }
-    }
 
     public function update_produk($id_produk = null){
     //Ambil data
@@ -107,20 +91,14 @@ class Produk extends CI_Controller {
     }else{
     //validasi input
     $valid = $this->form_validation;
-    $valid->set_rules('nama_produk', 'Nama Produk', 'required',
+    $valid->set_rules('nama_bimbel', 'Nama Produk', 'required',
         array('required' => '%s harus diisi.'));
     
-    $valid->set_rules('harga', 'Harga', 'required',
-        array('required' => '%s harus diisi.'));
     
-    $valid->set_rules('stok', 'Stok', 'required',
-        array('required' => '%s harus diisi.'));
     
-    $valid->set_rules('ukuran', 'Ukuran', 'required',
-        array('required' => '%s harus diisi.'));
     
-    $valid->set_rules('berat', 'Berat', 'required',
-        array('required' => '%s harus diisi.'));
+    
+  
 
     $valid->set_rules('deskripsi', 'Deskripsi', 'required',
         array('required' => '%s harus diisi.'));        
@@ -138,7 +116,7 @@ class Produk extends CI_Controller {
         if(!$this->upload->do_upload('gambar')){
     //end validasi
 
-    $data = array('title' => 'Edit Data Produk : '.$produk->nama_produk,
+    $data = array('title' => 'Edit Data Produk : '.$produk->nama_bimbel,
                 'message' => $this->upload->display_errors(),
                 'produk' => $produk,
                 'kategori' => $kategori);
@@ -153,12 +131,10 @@ class Produk extends CI_Controller {
         $i = $this->input;
         $data = array('id_produk'   => $id_produk,
                     'id_kategori'   => $i->post('id_kategori'),
-                    'kode_produk'   => $i->post('kode_produk'),
-                    'nama_produk'   => $i->post('nama_produk'),
-                    'harga'         => $i->post('harga'),
-                    'stok'          => $i->post('stok'),
-                    'ukuran'        => $i->post('ukuran'),
-                    'berat'         => $i->post('berat'),
+                    'kode_bimbel'   => $i->post('kode_bimbel'),
+                    'nama_bimbel'   => $i->post('nama_bimbel'),
+                    
+                   
                     'deskripsi'     => $i->post('deskripsi'),
                     'gambar'        => $gbr['upload_data']['file_name']
                     );
@@ -173,14 +149,13 @@ class Produk extends CI_Controller {
         }}else{
             //Edit produk tanpa mengganti gambar
             $i = $this->input;
-            $data = array('id_produk'   => $id_produk,
+            $data = array('id_kategori'   => $id_kategori,
                 'id_kategori'   => $i->post('id_kategori'),
-                'kode_produk'   => $i->post('kode_produk'),
-                'nama_produk'   => $i->post('nama_produk'),
-                'harga'         => $i->post('harga'),
-                'stok'          => $i->post('stok'),
-                'ukuran'        => $i->post('ukuran'),
-                'berat'         => $i->post('berat'),
+                'kode_bimbel'   => $i->post('kode_bimbel'),
+                'nama_bimbel'   => $i->post('nama_bimbel'),
+              
+                
+                
                 'deskripsi'     => $i->post('deskripsi'),
                 // 'gambar'        => $gbr['upload_data']['file_name']
                 );
@@ -193,7 +168,7 @@ class Produk extends CI_Controller {
                 </div>');
             redirect(base_url('admin/produk'), 'refresh');
         }}
-            $data = array('title' => 'Edit Data Produk : '.$produk->nama_produk,
+            $data = array('title' => 'Edit Data Produk : '.$produk->nama_bimbel,
             'produk' => $produk,
             'kategori' => $kategori);
             $this->load->view('admin/nav', $data, FALSE);
@@ -215,7 +190,7 @@ class Produk extends CI_Controller {
     }
     
     public function hapus_produk($id){
-        $data = array('id_produk' => $id);
+        $data = array('kode_bimbel' => $id);
         $this->produk_model->hapus($data, 'produk');
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data berhasil dihapus.
                     <button class="close" type="button" data-dismiss="alert" aria-label="Close">

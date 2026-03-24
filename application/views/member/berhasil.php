@@ -14,7 +14,7 @@
                     echo '</div>';
                 }?>
                 
-                <p class="alert alert-success">Konfirmasi berhasil. Produk akan segera kami proses.</p>
+                <p class="alert alert-success">Konfirmasi berhasil. Selamat Mengikuti Bimbingan Belajar.</p>
             </div>
         </div>
     </div>

@@ -10,11 +10,12 @@ class Index extends CI_Controller {
     
     public function index(){
         
-            $data['data'] = $this->app->get_all('produk');
-            $data['title'] = 'Oktias Bakery & Cake';
+            $data['data'] = $this->app->get_all('berita');
+            $data['title'] = 'Sistem Informasi Inventaris Kantor Wilayah ATR/BPN Jawa Tengah';
             $this->load->view('templates/navbar', $data);
             $this->load->view('templates/slide', $data);
             $this->load->view('index', $data);
             $this->load->view('templates/footer');
     }
+    
 }

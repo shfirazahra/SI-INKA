@@ -1,5 +1,5 @@
-<?php $nav_produk = $this->produk_model->nav_produk(); ?>
-<?php $nav_mobile = $this->produk_model->nav_produk(); ?>
+<?php $nav_berita = $this->berita_model->nav_berita(); ?>
+<?php $nav_mobile = $this->berita_model->nav_berita(); ?>
 <?php $site = $this->konfigurasi_model->get_all(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="<?= base_url('assets/img/'.$site->icon); ?>"/>
+<link rel="icon" type="image/png" href="<?= base_url('assets/img/'.$site->logo); ?>"/>
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/templates/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -56,11 +56,12 @@
 
             <span class="topbar-child1">
                 <?= $site->email ?>
+                
             </span>
-
+            
             <div class="topbar-child2">
                 <span class="topbar-email">
-                    <?= $site->telepon ?>
+                Selamat Datang, <?= $this->session->userdata('nama'); ?>
                 </span>
             </div>
         </div>
@@ -68,7 +69,7 @@
         <div class="wrap_header">
             <!-- Logo -->
             <a href="<?= base_url('index'); ?>" class="logo mx-5">
-                <img src="<?= base_url('assets/img/'.$site->logo); ?>" alt="IMG-LOGO">
+                <img src="<?= base_url('assets/img/'.$site->logo); ?>" alt width="140px" width="140px">
             </a>
 
             <!-- Menu -->
@@ -78,23 +79,35 @@
                         <li class="sale-noti">
                             <a href="<?= base_url('index'); ?>">Beranda</a>
                         </li>
-                        <li>
-                            <a href="<?= base_url('produk'); ?>">Produk &amp; Belanja</a>
-                            <ul class="sub_menu"> 
-                                <?php foreach ($nav_produk as $nav_produk ) { ?>
-                                <li class="nav-item"><a href="<?= base_url('produk/kategori/'.$nav_produk->url) ?>">
-                                <?= $nav_produk->nama_kategori ?></a></li>
-                                <?php } ?>
-                            </ul>
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tentang Kami</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="<?php echo site_url().'/about'; ?>" class="dropdown-item">Sekilas</a>
+                            <a href="<?php echo site_url().'/visi'; ?>" class="dropdown-item">Visi & Misi</a>
+                            <a href="<?php echo site_url().'/profil'; ?>" class="dropdown-item">Profil Kepala Kantor</a>
+                            <a href="<?php echo site_url().'/struktur'; ?>" class="dropdown-item">Struktur Organisasi Kantor</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Publikasi</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="<?php echo site_url().'/bphtb'; ?>" class="dropdown-item">Maklumat ATR/BPN</a>
+                          
+                            
+                            </div>
+                        </div>
+									
                         </li>
-
+                       
+                        
                         <li>
-                            <a href="<?= base_url('tentang'); ?>">Tentang</a>
+                            <a href="<?= base_url('berita'); ?>">Berita</a>
                         </li>
 
                         <li>
                             <a href="<?= base_url('kontak'); ?>">Kontak</a>
                         </li>
+
                     </ul>
                 </nav>
             </div>
@@ -123,9 +136,8 @@
                     //cek belanjaan ada atau tidak
                     $keranjang = $this->cart->contents();
                     ?>
-                    <img src="<?= base_url(); ?>assets/templates/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                    <span class="header-icons-noti"><?= count($keranjang) ?></span>
-
+                  
+                    
                     <!-- Header cart noti -->
                     <div class="header-cart header-dropdown">
                         <ul class="header-cart-wrapitem">
@@ -136,7 +148,7 @@
                             ?>
 
                             <li class="header-cart-item">
-                                <p class="alert alert-success">Keranjang Belanja Kosong</p>
+                                <p class="alert alert-success">Booking Kosong</p>
                             </li>
                             <?php
                             //kalau ada belanjaan
@@ -145,17 +157,17 @@
                             $total_belanja = 'Rp. '.number_format($this->cart->total(),'0',',','.');
 
                                 foreach($keranjang as $keranjang) {
-                                   $id_produk = $keranjang ['id'];
+                                   $kode_bimbel = $keranjang ['id'];
                                    //ambil data
-                                   $produknya = $this->produk_model->getbyid($id_produk, 'produk');
+                                   $produknya = $this->produk_model->getbyid($kode_bimbel, 'produk');
                             ?>
                             <li class="header-cart-item">
                                 <div class="header-cart-item-img">
-                                    <img src="<?= base_url('assets/admin/foto/').$produknya->gambar; ?>" alt="<?= $keranjang['name'] ?>">
+                                    <img src="<?= base_url('assets/admin/foto/').$produknya->foto; ?>" alt="<?= $keranjang['name'] ?>">
                                 </div>
 
                                 <div class="header-cart-item-txt">
-                                    <a href="<?= base_url('produk/detail/'.$produknya->nama_produk) ?>" class="header-cart-item-name">
+                                    <a href="<?= base_url('tb_bimbel/detail/'.$produknya->nama_bimbel) ?>" class="header-cart-item-name">
                                         <?= $keranjang['name'] ?>
                                     </a>
                                     <span class="header-cart-item-info">
@@ -176,14 +188,14 @@
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
                                 <a href="<?= base_url('keranjang/') ?>" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                    View Cart
+                                    View Booking
                                 </a>
                             </div>
 
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
                                 <a href="<?= base_url('keranjang/checkout') ?>" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                    Check Out
+                                    Bayar
                                 </a>
                             </div>
                         </div>
@@ -324,23 +336,14 @@
                     <a href="<?= base_url('index'); ?>">Beranda</a>
                 </li>
 
+               
+
                 <li class="item-menu-mobile">
-                    <a href="<?= base_url('produk'); ?>">Produk &amp; Belanja</a>
-                    <ul class="sub-menu">
-                        <?php foreach ($nav_mobile as $nav_mobile ) { ?>
-                            <li class="nav-item"><a href="<?= base_url('produk/'.$nav_mobile->url) ?>">
-                            <?= $nav_mobile->nama_kategori ?></a></li>
-                        <?php } ?>
-                    </ul>
-                    <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+                    <a href="<?= base_url('about'); ?>">About</a>
                 </li>
 
                 <li class="item-menu-mobile">
-                    <a href="<?= base_url('about'); ?>">Tentang</a>
-                </li>
-
-                <li class="item-menu-mobile">
-                    <a href="<?= base_url('contact'); ?>">Kontak</a>
+                    <a href="<?= base_url('kontak'); ?>">Kontak</a>
                 </li>
             </ul>
         </nav>

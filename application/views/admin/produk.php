@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800 mx-1">Data Produk</h1>
+          <h1 class="h3 mb-2 text-gray-800 mx-1">Data Kategori</h1>
               <?= $this->session->flashdata('message'); ?>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -9,14 +9,14 @@
                         <span class='icon text-white-50'>
                           <i class='fas fa-plus'></i>
                         </span>
-                        <span class='text'>Tambah Data</span>
+                        <span class='text'>Tambah Barang</span>
                     </a>
 
                     <a href="<?= base_url('admin/laporan/data_produk'); ?>" target="_blank" class='btn btn-success btn-icon-split'>
                         <span class='icon text-white-50'>
                           <i class='fas fa-print'></i>
                         </span>
-                        <span class='text'>Cetak Data Produk</span>
+                        <span class='text'>Cetak Barang</span>
                     </a>
                 </div>
                 <div class="card-body">
@@ -25,52 +25,48 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Produk</th>
-                        <th>Nama</th>
+                        <th>Id_barang</th>
+						
+                        <th>Nama Barang</th>
                         <th>Kategori</th>
-                        <th>Harga</th>
-                        <th>Foto</th>
+                        
+                      
+                        <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Kode Produk</th>
-                        <th>Nama</th>
-                        <th>Kategori</th>
-                        <th>Harga</th>
-                        <th>Foto</th>
-                        <th>Aksi</th>
-                    </tr>
-                </tfoot>
+                
                 <tbody>
                     <?php $nomor=1;
-                    foreach($produk as $produk) {
+                    foreach($produk as $tb_databarang) {
                     ?>
                     <tr>
                         <td><?= $nomor ?></td>
-                        <td><?= $produk->kode_produk ?></td>
-                        <td><?= $produk->nama_produk ?></td>
-                        <td><?= $produk->nama_kategori ?></td>
-                        <td><?= 'Rp. '.number_format($produk->harga,0,',','.') ?></td>
+                        <td><?= $tb_databarang->kode_bimbel ?></td>
+						
+                        <td><?= $tb_databarang->nama_bimbel ?></td>
+                        <td><?= $tb_databarang->id_kategori ?></td>
+                       
+                       
                         <td>
-                            <img src="<?= base_url(); ?>assets/admin/foto/<?= $produk->gambar ?>" width="100">
+                            <img src="<?= base_url(); ?>assets/admin/foto/<?= $tb_databarang->foto ?>" width="100">
                         </td>
+                       
+                       
                         <td>
-                            <a href="<?= base_url(); ?>admin/produk/hapus_produk/<?= $produk->id_produk; ?>" onclick="return confirm('Apa anda yakin ingin menghapus <?= $produk->nama_produk ?>?')" class='btn btn-danger btn-icon-split'>
+                            <a href="<?= base_url(); ?>admin/produk/hapus_produk/<?= $tb_databarang->kode_bimbel; ?>" onclick="return confirm('Apa anda yakin ingin menghapus <?= $tb_databarang->nama_bimbel ?>?')" class='btn btn-danger btn-icon-split'>
                                 <span class='icon text-white-50'>
                                   <i class='fas fa-trash'></i>
                                 </span>
                             </a>
 
-                            <a href="<?= base_url(); ?>admin/produk/update_produk/<?= $produk->id_produk; ?>" class='btn btn-warning btn-icon-split'>
+                            <a href="<?= base_url(); ?>admin/produk/update_produk/<?= $tb_databarang->kode_bimbel; ?>" class='btn btn-warning btn-icon-split'>
                                 <span class='icon text-white-50'>
                                   <i class='fas fa-exclamation-triangle'></i>
                                 </span>
                             </a>
 
-                            <a href="<?= base_url(); ?>admin/produk/detail_produk/<?= $produk->id_produk; ?>" class='btn btn-info btn-icon-split'>
+                            <a href="<?= base_url(); ?>admin/produk/detail_produk/<?= $tb_databarang->kode_bimbel; ?>" class='btn btn-info btn-icon-split'>
                                 <span class='icon text-white-50'>
                                   <i class='fas fa-eye'></i>
                                 </span>
