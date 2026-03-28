@@ -1,5 +1,3 @@
-# Toko Online
-
 
 ## Langkah-langkah pengaturan
 
